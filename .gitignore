@@ -9,8 +9,14 @@ TAGS
 /solr/vendor
 /vendor
 composer.phar
+composer.lock
 import/solrmarc.log
 node_modules
 public/swagger-ui
 .vagrant
 local/config/vufind/config.ini
+themes/bootstrap3/css/compiled.css
+themes/bootprint3/css/compiled.css
+themes/sandal/css/compiled.css
+themes/local_theme_example/css/compiled.css
+
