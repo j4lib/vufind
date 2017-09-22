@@ -164,12 +164,9 @@
 #-----------------------------------------------------------------------------------
 
 # These searches use Dismax when possible:
-Author:
+Agent:
   DismaxFields:
-    - author^100
-    - author_fuller^50
-    - author2
-    - author2_fuller
+    - agent^100
     - author_additional
     - author_corporate
     - author_variant
@@ -256,7 +253,7 @@ AllFields:
     - title_new^100
     - series^50
     - series2^30
-    - author^300
+    - agent^300
     - author_fuller^150
     - contents^10
     - topic_unstemmed^550
