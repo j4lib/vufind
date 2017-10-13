@@ -117,6 +117,7 @@
    <field name="spellingShingle" type="textSpellShingle" indexed="true" stored="true" multiValued="true"/>
    <!-- Institutional Fields -->
    <field name="institution" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="institutionID" type="string" indexed="true" stored="false" multiValued="true"/>
    <field name="institutionFacet" type="string" indexed="true" stored="false" multiValued="true"/>
    <field name="collection" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="building" type="string" indexed="true" stored="true" multiValued="true"/>
@@ -151,10 +152,10 @@
    <!-- <field name="url" type="string" indexed="false" stored="true" multiValued="true"/> -->
    <field name="thumbnail" type="string" indexed="false" stored="true"/>
    <!-- Catalog Specific Fields -->
-   <!-- <field name="lccn" type="string" indexed="true" stored="true"/>
-   <field name="ctrlnum" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="isbn" type="isn" indexed="true" stored="true" multiValued="true"/>
    <field name="issn" type="isn" indexed="true" stored="true" multiValued="true"/>
+   <!-- <field name="lccn" type="string" indexed="true" stored="true"/>
+   <field name="ctrlnum" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="oclc_num" type="string" indexed="true" stored="true" multiValued="true" />
    <field name="callnumber-first" type="string" indexed="true" stored="true"/>
    <field name="callnumber-subject" type="string" indexed="true" stored="true"/>

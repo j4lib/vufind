@@ -292,6 +292,8 @@ ParentID:
 agentID:
   QueryFields:
     agentID:
+      - [onephrase, 50]
+    institutionID:
       - [onephrase, ~]
 
 # Fields for exact matches originating from alphabetic browse
