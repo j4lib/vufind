@@ -228,7 +228,7 @@ Title:
     - title_full^400
     - title^300
     - title_alt^200
-    - title_new^100
+    - title_sub^100
     - title_old
     - series^100
     - series2
@@ -250,7 +250,7 @@ AllFields:
     - title_full^400
     - title^500
     - title_alt^200
-    - title_new^100
+    - title_sub^100
     - series^50
     - series2^30
     - agent^300
