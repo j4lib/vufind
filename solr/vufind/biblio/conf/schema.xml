@@ -151,6 +151,7 @@
    <field name="pDates" type="text" indexed="true" stored="true" multiValued="true"/>
    <!-- <field name="url" type="string" indexed="false" stored="true" multiValued="true"/> -->
    <field name="thumbnail" type="string" indexed="false" stored="true"/>
+   <field name="hasThumb" type="boolean" indexed="true" stored="false"/>
    <!-- Catalog Specific Fields -->
    <field name="isbn" type="isn" indexed="true" stored="true" multiValued="true"/>
    <field name="issn" type="isn" indexed="true" stored="true" multiValued="true"/>
@@ -182,6 +183,7 @@
    <!-- <field name="title_old" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="title_new" type="text" indexed="true" stored="true" multiValued="true"/> -->
    <field name="dateSpan" type="range" indexed="true" stored="false" multiValued="true"/>
+   <field name="dateSpanSort" type="date" indexed="true" stored="false"/>
    <field name="series" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="series2" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="topic" type="text" indexed="true" stored="true" multiValued="true"/>

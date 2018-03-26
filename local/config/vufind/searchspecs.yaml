@@ -296,6 +296,12 @@ agentID:
     institutionID:
       - [onephrase, ~]
 
+# set of all fields with thumbnails
+hasThumb:
+  QueryFields:
+    hasThumb:
+      - [onephrase, ~]
+
 # Fields for exact matches originating from alphabetic browse
 ids:
   QueryFields:
