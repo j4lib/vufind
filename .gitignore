@@ -3,6 +3,7 @@
 ChangeLog
 \#*
 .\#*
+.php_cs_cache
 TAGS
 *~
 /downloads
@@ -14,9 +15,10 @@ import/solrmarc.log
 node_modules
 public/swagger-ui
 .vagrant
+lessphp_*.list
 local/config/vufind/config.ini
+local/*.conf
 themes/bootstrap3/css/compiled.css
 themes/bootprint3/css/compiled.css
 themes/sandal/css/compiled.css
 themes/local_theme_example/css/compiled.css
-
