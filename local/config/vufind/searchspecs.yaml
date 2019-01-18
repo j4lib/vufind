@@ -164,9 +164,9 @@
 #-----------------------------------------------------------------------------------
 
 # These searches use Dismax when possible:
-Agent:
+Author:
   DismaxFields:
-    - agent^100
+    - author^100
     - author_additional
     - author_corporate
     - author_variant
@@ -253,7 +253,7 @@ AllFields:
     - title_sub^100
     - series^50
     - series2^30
-    - agent^300
+    - author^300
     - author_fuller^150
     - contents^10
     - topic_unstemmed^550
@@ -289,11 +289,11 @@ ParentID:
     hierarchy_parent_id:
       - [onephrase, ~]
 
-agentID:
+Authority:
   QueryFields:
-    agentID:
+    author_id:
       - [onephrase, 50]
-    institutionID:
+    institution_id:
       - [onephrase, ~]
 
 # set of all fields with thumbnails
