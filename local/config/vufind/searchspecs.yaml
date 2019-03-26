@@ -297,9 +297,9 @@ Authority:
       - [onephrase, ~]
 
 # set of all fields with thumbnails
-hasThumb:
+has_thumb:
   QueryFields:
-    hasThumb:
+    has_thumb:
       - [onephrase, ~]
 
 # Fields for exact matches originating from alphabetic browse
