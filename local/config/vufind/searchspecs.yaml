@@ -378,11 +378,19 @@ publisher:
       - [and, 100]
       - [or, ~]
 
-year:
+#year:
+#  DismaxFields:
+#    - publishDate^100
+#  QueryFields:
+#    publishDate:
+#      - [and, 100]
+#      - [or, ~]
+
+date_span_sort:
   DismaxFields:
-    - publishDate^100
+    - date_span^100
   QueryFields:
-    publishDate:
+    date_span:
       - [and, 100]
       - [or, ~]
 
