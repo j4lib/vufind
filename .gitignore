@@ -18,7 +18,9 @@ public/swagger-ui
 lessphp_*.list
 local/config/vufind/config.ini
 local/*.conf
+local/harvest/oai.ini
 themes/bootstrap3/css/compiled.css
 themes/bootprint3/css/compiled.css
 themes/sandal/css/compiled.css
 themes/local_theme_example/css/compiled.css
+themes/fiddk/images/newsletter
