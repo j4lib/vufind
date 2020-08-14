@@ -95,6 +95,11 @@
         <filter class="solr.ICUFoldingFilterFactory"/>
       </analyzer>
     </fieldType>
+    <fieldType name="playbillSearch" class="solr.TextField" omitNorms="true">
+      <analyzer>
+        <tokenizer class="solr.PatternTokenizerFactory" pattern="^\d{4}-(\d{2}-\d{2}).*$" group="1"/>
+      </analyzer>
+    </fieldType>
     <fieldType name="date" class="solr.DatePointField" sortMissingLast="true" omitNorms="true"/>
     <fieldType name="random" class="solr.RandomSortField" indexed="true" />
     <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
@@ -150,7 +155,7 @@
    <field name="institution_facet" type="string" indexed="true" stored="false" multiValued="true"/>
    <field name="author_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="topic_id" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="topic_type" type="string" indexed="false" stored="true" multiValued="true"/>
+   <field name="topic_role" type="string" indexed="false" stored="true" multiValued="true"/>
    <field name="event" type="textProper" indexed="true" stored="true" multiValued="true"/>
    <field name="event_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="has_thumb" type="boolean" indexed="true" stored="false"/>
@@ -190,6 +195,7 @@
    <field name="title_new" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="date_span" type="range" indexed="true" stored="true" multiValued="true"/>
    <field name="date_span_sort" type="string" indexed="true" stored="true"/>
+   <field name="date_month_day" type="playbillSearch" indexed="true"/>
    <field name="series" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="series2" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="topic" type="text" indexed="true" stored="true" multiValued="true"/>
@@ -279,6 +285,8 @@
  <!-- CopyFields for call numbers -->
  <copyField source="dewey-raw" dest="dewey-search"/>
  <copyField source="callnumber-raw" dest="callnumber-search"/>
- <!-- CopyFields for containers -->
+ <!-- CopyField for containers -->
  <copyField source="container_title" dest="container_facet"/>
+ <!-- CopyField for dates -->
+ <copyField source="date_span_sort" dest="date_month_day"/>
 </schema>

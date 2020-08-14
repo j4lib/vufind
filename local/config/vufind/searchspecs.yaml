@@ -300,15 +300,22 @@ Event:
 Agent:
   QueryFields:
     author_id:
-      - [onephrase, 50]
+      - [onephrase, 100]
     institution_id:
       - [onephrase, ~]
+    topic_id:
+      - [onephrase, 50]
 
 # set of all fields with thumbnails
 has_thumb:
   QueryFields:
     has_thumb:
       - [onephrase, ~]
+
+playbills:
+  DismaxFields:
+    - date_month_day^100
+  FilterQuery: "format:Theaterzettel"
 
 # Fields for exact matches originating from alphabetic browse
 ids:
