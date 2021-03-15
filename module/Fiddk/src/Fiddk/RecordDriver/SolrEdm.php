@@ -2,7 +2,7 @@
 /**
  * Model for EDM records in Solr.
  *
- * PHP version 5
+ * PHP version 7
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -50,6 +50,7 @@ class SolrEdm extends \VuFind\RecordDriver\SolrDefault
         'author', 'author_id', 'title', 'title_short', 'title_full', 'event', 'event_id',
         'title_full_unstemmed', 'title_auth', 'title_sub', 'spelling', 'id', 'topic_id',
         'ctrlnum', 'author_variant', 'author2_variant', 'fullrecord', 'hierarchy_parent_id',
+        'work','work_id'
     ];
 
 }

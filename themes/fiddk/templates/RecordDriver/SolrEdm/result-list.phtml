@@ -3,7 +3,7 @@
   $cover = $coverDetails['html'];
   $thumbnail = false;
   $thumbnailAlignment = $this->record($this->driver)->getThumbnailAlignment('result');
-  if ($cover):
+  if ($coverDetails['cover']):
     ob_start(); ?>
     <div class="media-<?=$thumbnailAlignment ?> <?=$this->escapeHtmlAttr($coverDetails['size'])?>">
       <?=$cover ?>
@@ -167,7 +167,7 @@
 
       <?php if ($institution = $this->driver->getInstitution()): ?>
       <div class="result-institutions">
-          <span class="badge"><?=$institution;?></span>
+          <span class="badge"><?=$this->transEsc("dprov::" . $institution);?></span>
         <?php if (!$this->driver->isArchiveRecord() && $this->driver->getKVKLink()): ?>
           <a class="badge badge-secondary" href="<?=$this->driver->getKVKLink()?>" rel="nofollow" target="_blank"><?=$this->transEsc('Availability') . ' KVK'?></a>
         <?php endif; ?>

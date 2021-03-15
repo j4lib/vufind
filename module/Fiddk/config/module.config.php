@@ -1,11 +1,11 @@
 <?php
-namespace Fiddk\Module\Configuration;
+namespace Fiddk\Module\Config;
 
 $config = [
   'router' => [
       'routes' => [
           'dataprovider-page' => [
-              'type'    => 'Zend\Router\Http\Segment',
+              'type'    => 'Laminas\Router\Http\Segment',
               'options' => [
                   'route'    => '/DataProvider/[:page]',
                   'constraints' => [
@@ -18,7 +18,7 @@ $config = [
               ],
           ],
           'showcase' => [
-            'type' => 'Zend\Router\Http\Literal',
+            'type' => 'Laminas\Router\Http\Literal',
             'options' => [
               'route'    => '/Showcase',
             'defaults' => [
@@ -34,10 +34,12 @@ $config = [
       'Fiddk\Controller\ContentController' => 'VuFind\Controller\AbstractBaseFactory',
       'Fiddk\Controller\DataProviderController' => 'VuFind\Controller\AbstractBaseFactory',
       'Fiddk\Controller\AgentSearchController' => 'VuFind\Controller\AbstractBaseFactory',
+      'Fiddk\Controller\AgentController' => 'VuFind\Controller\AbstractBaseWithConfigFactory',
       'Fiddk\Controller\RecordController' => 'VuFind\Controller\AbstractBaseWithConfigFactory',
       'Fiddk\Controller\EventSearchController' => 'VuFind\Controller\AbstractBaseFactory',
       'Fiddk\Controller\EventController' => 'VuFind\Controller\AbstractBaseFactory',
-      'Fiddk\Controller\AgentController' => 'VuFind\Controller\AbstractBaseWithConfigFactory',
+      'Fiddk\Controller\WorkSearchController' => 'VuFind\Controller\AbstractBaseFactory',
+      'Fiddk\Controller\WorkController' => 'VuFind\Controller\AbstractBaseFactory',
       'Fiddk\Controller\SearchController' => 'VuFind\Controller\AbstractBaseWithConfigFactory',
       'Fiddk\Controller\FeedbackController' => 'VuFind\Controller\AbstractBaseFactory',
       'Fiddk\Controller\ShowcaseController' => 'VuFind\Controller\AbstractBaseFactory',
@@ -55,6 +57,10 @@ $config = [
       'eventsearch' => 'Fiddk\Controller\EventSearchController',
       'Event' => 'Fiddk\Controller\EventController',
       'event' => 'Fiddk\Controller\EventController',
+      'WorkSearch' => 'Fiddk\Controller\WorkSearchController',
+      'worksearch' => 'Fiddk\Controller\WorkSearchController',
+      'Work' => 'Fiddk\Controller\WorkController',
+      'work' => 'Fiddk\Controller\WorkController',
       'Feedback' => 'Fiddk\Controller\FeedbackController',
       'feedback' => 'Fiddk\Controller\FeedbackController',
 
@@ -70,10 +76,12 @@ $config = [
     'allow_override' => true,
     'factories' => [
       'Fiddk\ContentBlock\PluginManager' => 'VuFind\ServiceManager\AbstractPluginManagerFactory',
+      'Fiddk\RecordDriver\PluginManager' => 'VuFind\ServiceManager\AbstractPluginManagerFactory',
     ],
     'aliases' => [
-      'VuFind\ContentBlock\PluginManager' => 'Fiddk\ContentBlock\PluginManager'
-    ]
+      'VuFind\ContentBlock\PluginManager' => 'Fiddk\ContentBlock\PluginManager',
+      'VuFind\RecordDriver\PluginManager' => 'Fiddk\RecordDriver\PluginManager',
+    ],
   ],
   'vufind' => [
     'plugin_managers' => [
@@ -88,7 +96,7 @@ $config = [
       ],
       'recommend' => [
         'factories' => [
-          'Fiddk\Recommend\AuthInfo' => 'Fiddk\Recommend\AuthInfoFactory',
+          'Fiddk\Recommend\AuthInfo' => 'VuFind\Recommend\AuthorInfoFactory',
         ],
         'aliases' => [
           'authinfo' => 'Fiddk\Recommend\AuthInfo',
@@ -98,6 +106,7 @@ $config = [
         'factories' => [
           'SolrEvent' => 'Fiddk\Search\Factory\SolrEventBackendFactory',
           'SolrAuthor' => 'Fiddk\Search\Factory\SolrAuthorBackendFactory',
+          'SolrWork' => 'Fiddk\Search\Factory\SolrWorkBackendFactory',
         ],
       ],
       'search_options' => [
@@ -105,11 +114,13 @@ $config = [
           'Fiddk\Search\SolrAuthority\Options' => 'VuFind\Search\Options\OptionsFactory',
           'Fiddk\Search\SolrAuthor\Options' => 'VuFind\Search\Options\OptionsFactory',
           'Fiddk\Search\SolrEvent\Options' => 'VuFind\Search\Options\OptionsFactory',
+          'Fiddk\Search\SolrWork\Options' => 'VuFind\Search\Options\OptionsFactory',
           ],
         'aliases' => [
           'solrauthority' => 'Fiddk\Search\SolrAuthority\Options',
           'VuFind\Search\SolrAuthor\Options' => 'Fiddk\Search\SolrAuthor\Options',
           'solrevent' => 'Fiddk\Search\SolrEvent\Options',
+          'solrwork' => 'Fiddk\Search\SolrWork\Options',
           ],
       ],
       'search_params' => [
@@ -117,11 +128,13 @@ $config = [
           'Fiddk\Search\SolrEvent\Params' => 'VuFind\Search\Solr\ParamsFactory',
           'Fiddk\Search\SolrAuthority\Params' => 'VuFind\Search\Solr\ParamsFactory',
           'Fiddk\Search\SolrAuthor\Params' => 'VuFind\Search\Solr\ParamsFactory',
+          'Fiddk\Search\SolrWork\Params' => 'VuFind\Search\Solr\ParamsFactory',
           ],
         'aliases' => [
           'solrauthority' => 'Fiddk\Search\SolrAuthority\Params',
           'VuFind\Search\SolrAuthor\Params' => 'Fiddk\Search\SolrAuthor\Params',
           'solrevent' => 'Fiddk\Search\SolrEvent\Params',
+          'solrwork' => 'Fiddk\Search\SolrWork\Params',
           ],
       ],
       'search_results' => [
@@ -129,58 +142,22 @@ $config = [
           'Fiddk\Search\SolrAuthority\Results' => 'VuFind\Search\Solr\ResultsFactory',
           'Fiddk\Search\SolrAuthor\Results' => 'VuFind\Search\Solr\ResultsFactory',
           'Fiddk\Search\SolrEvent\Results' => 'VuFind\Search\Solr\ResultsFactory',
+          'Fiddk\Search\SolrWork\Results' => 'VuFind\Search\Solr\ResultsFactory',
           ],
         'aliases' => [
           'VuFind\Search\SolrAuthor\Results' => 'Fiddk\Search\SolrAuthor\Results',
+          'solrauthor' => 'Fiddk\Search\SolrAuthor\Results',
           'solrevent' => 'Fiddk\Search\SolrEvent\Results',
+          'solrwork' => 'Fiddk\Search\SolrWork\Results',
           'solrauthority' => 'Fiddk\Search\SolrAuthority\Results',
           ],
       ],
-      'recorddriver' => [
-        'factories' => [
-          'Fiddk\RecordDriver\SolrEdm' =>
-              'VuFind\RecordDriver\SolrDefaultFactory',
-          'Fiddk\RecordDriver\SolrAuthor' =>
-              'VuFind\RecordDriver\SolrDefaultFactory',
-          'Fiddk\RecordDriver\SolrEvent' =>
-              'VuFind\RecordDriver\SolrDefaultFactory',
-
-        ],
-        'aliases' => [
-          'solredm' => 'Fiddk\RecordDriver\SolrEdm',
-          'solrauthor' => 'Fiddk\RecordDriver\SolrAuthor',
-          'solrevent' => 'Fiddk\RecordDriver\SolrEvent',
-        ],
-      ],
       'recordtab' => [
-        'factories' => [
-          'Fiddk\RecordTab\StaffViewEdm' => 'Zend\ServiceManager\Factory\InvokableFactory',
-        ],
         'aliases' => [
           'staffviewedm' => 'Fiddk\RecordTab\StaffViewEdm',
         ],
       ],
     ],
-    'recorddriver_tabs' => [
-      'Fiddk\RecordDriver\SolrEdm' => [
-        'tabs' => [
-          'TOC' => 'TOC',
-          'Similar' => 'SimilarItemsCarousel',
-          'Details' => 'StaffViewEdm',
-        ],
-        'defaultTab' => null,
-        ],
-      'Fiddk\RecordDriver\SolrEvent' => [
-        'tabs' => [
-        ],
-        'defaultTab' => null,
-        ],
-      'Fiddk\RecordDriver\SolrAuthor' => [
-        'tabs' => [
-        ],
-        'defaultTab' => null,
-        ],
-      ],
     ],
 ];
 
@@ -193,10 +170,13 @@ $recordRoutes = [
     'missingrecord' => 'MissingRecord',
     'agentrecord' => 'agent',
     'solrauthorrecord' => 'agent',
+    'workrecord' => 'work',
+    'solrworkrecord' => 'work',
 ];
 
 $staticRoutes = ['EventSearch/Home','EventSearch/Results',
                  'AgentSearch/Home','AgentSearch/Results',
+                 'WorkSearch/Home','WorkSearch/Results',
                  'Showcase/Home', 'Showcase/Playbills'];
 
 $routeGenerator = new \VuFind\Route\RouteGenerator();
@@ -205,7 +185,7 @@ $routeGenerator->addStaticRoutes($config, $staticRoutes);
 
 // Add the home route last
 $config['router']['routes']['home'] = [
-    'type' => 'Zend\Router\Http\Literal',
+    'type' => 'Laminas\Router\Http\Literal',
     'options' => [
         'route'    => '/',
         'defaults' => [

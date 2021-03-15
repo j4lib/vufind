@@ -34,7 +34,7 @@ use VuFindSearch\Backend\Exception\RemoteErrorException;
 
 use VuFindSearch\Backend\Solr\Response\Json\Terms;
 use VuFindSearch\Exception\InvalidArgumentException;
-
+use VuFindSearch\Feature\GetIdsInterface;
 use VuFindSearch\Feature\RandomInterface;
 
 use VuFindSearch\Feature\RetrieveBatchInterface;
@@ -57,8 +57,16 @@ use VuFindSearch\Response\RecordCollectionInterface;
  * @link     https://vufind.org
  */
 class Backend extends AbstractBackend
-    implements SimilarInterface, RetrieveBatchInterface, RandomInterface
+    implements SimilarInterface, RetrieveBatchInterface, RandomInterface,
+    GetIdsInterface
 {
+    /**
+     * Limit for records per query in a batch retrieval.
+     *
+     * @var int
+     */
+    protected $pageSize = 100;
+
     /**
      * Connector.
      *
@@ -94,6 +102,18 @@ class Backend extends AbstractBackend
     }
 
     /**
+     * Set the limit for batch queries
+     *
+     * @param int $pageSize Records per Query
+     *
+     * @return void
+     */
+    public function setPageSize($pageSize)
+    {
+        $this->pageSize = $pageSize;
+    }
+
+    /**
      * Perform a search and return record collection.
      *
      * @param AbstractQuery $query  Search query
@@ -111,6 +131,33 @@ class Backend extends AbstractBackend
 
         $params->set('rows', $limit);
         $params->set('start', $offset);
+        $params->mergeWith($this->getQueryBuilder()->build($query));
+        $response   = $this->connector->search($params);
+        $collection = $this->createRecordCollection($response);
+        $this->injectSourceIdentifier($collection);
+
+        return $collection;
+    }
+
+    /**
+     * Perform a search and return record collection of only record identifiers.
+     *
+     * @param AbstractQuery $query  Search query
+     * @param int           $offset Search offset
+     * @param int           $limit  Search limit
+     * @param ParamBag      $params Search backend parameters
+     *
+     * @return RecordCollectionInterface
+     */
+    public function getIds(AbstractQuery $query, $offset, $limit,
+        ParamBag $params = null
+    ) {
+        $params = $params ?: new ParamBag();
+        $this->injectResponseWriter($params);
+
+        $params->set('rows', $limit);
+        $params->set('start', $offset);
+        $params->set('fl', $this->getConnector()->getUniqueKey());
         $params->mergeWith($this->getQueryBuilder()->build($query));
         $response   = $this->connector->search($params);
         $collection = $this->createRecordCollection($response);
@@ -172,10 +219,6 @@ class Backend extends AbstractBackend
     {
         $params = $params ?: new ParamBag();
 
-        // Load 100 records at a time; this is a good number to avoid memory
-        // problems while still covering a lot of ground.
-        $pageSize = 100;
-
         // Callback function for formatting IDs:
         $formatIds = function ($i) {
             return '"' . addcslashes($i, '"') . '"';
@@ -184,11 +227,11 @@ class Backend extends AbstractBackend
         // Retrieve records a page at a time:
         $results = false;
         while (count($ids) > 0) {
-            $currentPage = array_splice($ids, 0, $pageSize, []);
+            $currentPage = array_splice($ids, 0, $this->pageSize, []);
             $currentPage = array_map($formatIds, $currentPage);
             $params->set('q', 'id:(' . implode(' OR ', $currentPage) . ')');
             $params->set('start', 0);
-            $params->set('rows', $pageSize);
+            $params->set('rows', $this->pageSize);
             $this->injectResponseWriter($params);
             $next = $this->createRecordCollection(
                 $this->connector->search($params)

@@ -151,18 +151,23 @@
    <field name="url" type="string" indexed="false" stored="true" multiValued="true"/>
    <field name="thumbnail" type="string" indexed="false" stored="true"/>
    <!-- fid specific fields -->
-   <field name="institution_id" type="string" indexed="true" stored="false"/>
+   <field name="institution_id" type="string" indexed="true" stored="false" multiValued="true"/>
    <field name="institution_facet" type="string" indexed="true" stored="false" multiValued="true"/>
+   <field name="intermediate" type="string" indexed="true" stored="true"/>
+   <field name="intermediate_id" type="string" indexed="true" stored="false"/>
+   <field name="publisher_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="author_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="topic_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="topic_role" type="string" indexed="false" stored="true" multiValued="true"/>
    <field name="event" type="textProper" indexed="true" stored="true" multiValued="true"/>
    <field name="event_id" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="work" type="textProper" indexed="true" stored="true" multiValued="true"/>
+   <field name="work_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="has_thumb" type="boolean" indexed="true" stored="false"/>
    <field name="related_to" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="container_facet" type="string" indexed="true" stored="false" multiValued="true"/>
-
    <field name="archive" type="boolean" indexed="true" stored="false"/>
+
    <!-- Catalog Specific Fields -->
    <field name="lccn" type="string" indexed="true" stored="true"/>
    <field name="ctrlnum" type="string" indexed="true" stored="true" multiValued="true"/>
@@ -232,7 +237,7 @@
    <field name="title_in_hierarchy" type="string" indexed="true" stored="true" multiValued="true" />
    <field name="hierarchy_browse" type="string" indexed="true" stored="false" multiValued="true"/>
    <!-- Used for loading correct record driver -->
-   <field name="recordtype" type="string" indexed="false" stored="true"/>
+   <field name="record_format" type="string" indexed="true" stored="true"/>
    <!-- Tracking fields to keep track of oldest and most recent index times -->
    <field name="first_indexed" type="date" indexed="true" stored="true" docValues="true"/>
    <field name="last_indexed" type="date" indexed="true" stored="true" docValues="true"/>
